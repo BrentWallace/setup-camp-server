@@ -21,6 +21,6 @@ const campgroundSchema = new Schema({
     nearestTown: String
 });
 
-const Campground = mongoose.model('campground', campgroundSchema)
+const Campground = mongoose.model('campground', campgroundSchema);
 
 module.exports = Campground
