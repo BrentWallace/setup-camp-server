@@ -1,11 +1,11 @@
 const express = require('express');
+const campsiteRouter = require('./routers/campsites')
 require('dotenv').config();
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('welcome to setup.camp')
-});
+app.use(campsiteRouter);
+
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
