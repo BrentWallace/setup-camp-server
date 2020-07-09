@@ -2,6 +2,18 @@ const mongoose = require('mongoose');
 const { kStringMaxLength } = require('buffer');
 const Schema = mongoose.Schema
 
+const pointSchema = new mongoose.Schema({
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  });
+
 const campgroundSchema = new Schema({
     longitude: String,
     latitude: String,
@@ -18,7 +30,11 @@ const campgroundSchema = new Schema({
     state: String,
     distance: String,
     bearing: String,
-    nearestTown: String
+    nearestTown: String,
+    location: {
+        type: pointSchema,
+        index: '2dsphere'
+    }
 });
 
 const Campground = mongoose.model('campground', campgroundSchema);
