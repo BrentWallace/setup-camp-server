@@ -10,6 +10,9 @@ router.get('/campgrounds', async (req, res) => {
     if (req.query.state) {
       filters.state = req.query.state
     }
+    if (req.query.region) {
+      filters.region = req.query.region
+    }
     if (req.query.type) {
       filters.type = req.query.type
     }
@@ -27,12 +30,10 @@ router.get('/campgrounds', async (req, res) => {
       // convert miles to meters
       const radius = req.query.maxDistance*1609
       filters.loc = { '$nearSphere': { '$geometry': { 'type': "Point", 'coordinates': [parseFloat(req.query.longitude), parseFloat(req.query.latitude)] }, '$maxDistance': radius } } }
-    console.log(filters)
     const results = await Campground.find(filters);
-    console.log(results)
     return res.json(results);
   } catch (e) {
-    return res.send('There was an error with your search' + e)
+    return res.send('There was an error with your search')
   }
   return res.send('Sorry, no results were found for your search.');
 })
