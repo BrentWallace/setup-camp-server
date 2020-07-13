@@ -7,7 +7,11 @@ const router = new express.Router();
 
 // Get all users
 router.get('/users', async (req, res) => {
-    const users = await User.find()
+    const response = await User.find();
+    let users = response.map((user) => {
+        return user.toJSON();
+    })
+    res.status(200).send(users);
 });
 
 // Create user
@@ -29,7 +33,8 @@ router.post('/users/login', async (req, res) => {
         const token = await user.generateAuthToken()
         res.send({ user, token })
     } catch (e) {
-        res.status(400).send()
+        console.log(e)
+        res.status(400).send(e)
     }
 })
 

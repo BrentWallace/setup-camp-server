@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { kStringMaxLength } = require('buffer');
 const Schema = mongoose.Schema
 
 const pointSchema = new mongoose.Schema({
