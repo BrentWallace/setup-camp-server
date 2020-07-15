@@ -29,7 +29,8 @@ router.get('/campgrounds', async (req, res) => {
     if (req.query.latitude && req.query.longitude && req.query.maxDistance) {
       // convert miles to meters
       const radius = req.query.maxDistance*1609
-      filters.loc = { '$nearSphere': { '$geometry': { 'type': "Point", 'coordinates': [parseFloat(req.query.longitude), parseFloat(req.query.latitude)] }, '$maxDistance': radius } } }
+      filters.loc = { '$nearSphere': { '$geometry': { 'type': "Point", 'coordinates': [parseFloat(req.query.longitude), parseFloat(req.query.latitude)] }, '$maxDistance': radius } }
+    }
     const results = await Campground.find(filters);
     return res.json(results);
   } catch (e) {
