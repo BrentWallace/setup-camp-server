@@ -39,9 +39,9 @@ router.post('/users/login', async (req, res) => {
 })
 
 // Logout user
-router.post('/users/logout', async (req, res) => {
+router.post('/users/logout', auth, async (req, res) => {
   try {
-    const query = { _id: req.body._id }
+    const query = { _id: req.user }
     const response = await User.findOneAndUpdate(query, { tokens: [] })
     res.status(200).send()
   } catch (e) {
